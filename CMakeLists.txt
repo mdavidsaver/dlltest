@@ -7,25 +7,37 @@ include_directories(
 )
 
 if(CMAKE_COMPILER_IS_GNUCC)
-  add_definitions(-Wall -Werror)
+  add_compile_options(-Wall -Werror)
 endif()
 
-add_library(foo SHARED
+set(foo_SRC
    src/foo.h
    src/foo.c
 )
+
+if(WIN32)
+  list(APPEND foo_SRC src/foo.rc)
+endif()
+
+add_library(foo SHARED ${foo_SRC})
+
 include(GenerateExportHeader)
 generate_export_header(foo
   BASE_NAME foo
 )
+
 if(WIN32)
   set_target_properties(foo
     PROPERTIES
       VERSION 1.2
   )
+  # hosted msvc
+  #  foo.dll
+  #  foo.lib
   # cross mingw
   #  libfoo.dll.a
   #  libfoo.dll
+
 else()
   set_target_properties(foo
     PROPERTIES
