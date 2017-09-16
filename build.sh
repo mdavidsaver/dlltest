@@ -11,4 +11,8 @@ install -d build-host
 
 install -d build-w32
 
-(cd build-w32 && cmake -DCMAKE_TOOLCHAIN_FILE=../toolchains/mingw-cross.cmake .. && make VERBOSE=1)
+(cd build-w32 && cmake -DCMAKE_TOOLCHAIN_FILE=../toolchains/mingw32-cross.cmake .. && make VERBOSE=1)
+
+install -d build-w64
+
+(cd build-w64 && cmake -DCMAKE_TOOLCHAIN_FILE=../toolchains/mingw64-cross.cmake .. && make VERBOSE=1)

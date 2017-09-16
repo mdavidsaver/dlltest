@@ -6,6 +6,10 @@ include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
 )
 
+if(CMAKE_COMPILER_IS_GNUCC)
+  add_definitions(-Wall -Werror)
+endif()
+
 add_library(foo SHARED
    src/foo.h
    src/foo.c
