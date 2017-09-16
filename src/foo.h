@@ -11,7 +11,7 @@
 
 #include "foo_export.h"
 
-FOO_EXPORT _CCALL int fn1(int);
-FOO_EXPORT _STDCALL int fn2(int);
+FOO_EXPORT int _CCALL fn1(int);
+FOO_EXPORT int _STDCALL fn2(int);
 
 #endif
