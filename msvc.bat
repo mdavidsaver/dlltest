@@ -1,3 +1,5 @@
+rem run "cmake --help" and look at list of generator names
+
 if exist build32 goto cd32
 mkdir build32
 :cd32
