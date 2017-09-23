@@ -29,12 +29,12 @@ generate_export_header(foo
 if(WIN32)
   set_target_properties(foo
     PROPERTIES
-      VERSION 1.2
+      VERSION 1.2  # ImageVersion
   )
   # hosted msvc
   #  foo.dll
   #  foo.lib
-  # cross mingw
+  # mingw
   #  libfoo.dll.a
   #  libfoo.dll
 
