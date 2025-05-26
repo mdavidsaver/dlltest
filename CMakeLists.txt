@@ -21,31 +21,18 @@ endif()
 
 add_library(foo SHARED ${foo_SRC})
 
-include(GenerateExportHeader)
-generate_export_header(foo
-  BASE_NAME foo
+set_target_properties(foo
+  PROPERTIES
+    VERSION 1.2  # ImageVersion
+    SOVERSION 1.2 # suffix to SONAME
 )
+target_compile_definitions(foo PRIVATE -DBUILDING_FOO=1)
 
-if(WIN32)
-  set_target_properties(foo
-    PROPERTIES
-      VERSION 1.2  # ImageVersion
+if(NOT WIN32)
+  add_compile_options(
+    -fvisibility=hidden
+    $<$<COMPILE_LANGUAGE:CXX>:-fvisibility-inlines-hidden>
   )
-  # hosted msvc
-  #  foo.dll
-  #  foo.lib
-  # mingw
-  #  libfoo.dll.a
-  #  libfoo.dll
-
-else()
-  set_target_properties(foo
-    PROPERTIES
-      SOVERSION 1.2
-  )
-  # ELF targets
-  #  file name: libfoo.so
-  #  SONAME   : libfoo.so.3.4
 endif()
 
 add_executable(testexe

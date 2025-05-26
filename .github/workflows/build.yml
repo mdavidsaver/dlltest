@@ -1,0 +1,33 @@
+name: DLL testing
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  cmake:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - os: ubuntu-latest
+          gen: Unix Makefiles
+
+        - os: windows-2025
+          gen: Unix Makefiles
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: system info
+      run: |
+        cmake -h
+        cmake --system-information
+
+    - name: CMake Gen
+      run: cmake -G "${{ matrix.gen }}" -S . -B build
+
+    - name: CMake Build
+      run: cmake --build build -v --
+
+    - name: Result
+      shell: bash
+      run: find build -type f
